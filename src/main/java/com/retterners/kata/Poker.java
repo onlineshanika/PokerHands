@@ -8,7 +8,6 @@ public class Poker {
     public String play(String input, Poker poker) {
 
         String[] cards = input.split(" ");
-
         String[] blackHand = Arrays.copyOfRange(cards, 0, 5);
         String[] whiteHand = Arrays.copyOfRange(cards, 5, 10);
 
@@ -16,18 +15,18 @@ public class Poker {
         HandRank whiteResult = poker.getHandResult(whiteHand);
 
         if (blackResult.getValue() > whiteResult.getValue()) {
-            return "Black wins. - with " + blackResult.getRank();
+            return String.format("Black wins. - with %s", blackResult.getRank());
         } else if (blackResult.getValue() < whiteResult.getValue()) {
-            return "White wins. - with " + whiteResult.getRank();
+            return String.format("White wins. - with %s", whiteResult.getRank());
         } else {
             for (int i = 4; i >= 0; i--) {
                 int blackValue = CardValue.charValueBy(blackHand[i].charAt(0)).cardValue;
                 int whiteValue = CardValue.charValueBy(whiteHand[i].charAt(0)).cardValue;
 
                 if (blackValue > whiteValue) {
-                    return "Black wins. - with " + blackResult.getRank() + ": " + CardValue.cardValueBy(blackValue).card;
+                    return String.format("Black wins. - with %s: %s", blackResult.getRank(), CardValue.cardValueBy(blackValue).card);
                 } else if (whiteValue > blackValue) {
-                    return "White wins. - with " + whiteResult.getRank() + ": " + CardValue.cardValueBy(whiteValue).card;
+                    return String.format("White wins. - with %s: %s", whiteResult.getRank(), CardValue.cardValueBy(whiteValue).card);
                 }
             }
             // all cards are the same, it's a tie
@@ -57,11 +56,10 @@ public class Poker {
         if (isFullHouse(freq)) {
             return HandRank.FULL_HOUSE;
         }
-// Check for flush
+        // Check for flush
         if (isFlush(hand)) {
             return HandRank.FLUSH;
         }
-
 
         // Check for three of a kind
         if (isThreeOfAKind(freq)) {
