@@ -20,6 +20,7 @@ public class CardComparator implements Comparator<String> {
     private int getValue(String card) {
         String valueString = card.substring(0, card.length() - 1);
         return switch (valueString) {
+            case "T" -> 10;
             case "J" -> 11;
             case "Q" -> 12;
             case "K" -> 13;
